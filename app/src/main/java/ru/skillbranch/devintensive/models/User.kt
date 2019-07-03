@@ -1,15 +1,16 @@
 package ru.skillbranch.devintensive.models
 
+import ru.skillbranch.devintensive.utils.Utils
 import java.util.*
 
-class User(
+data class User(
     val id: String,
     var firstName: String?,
     var lastName: String?,
     var avatar: String?,
     var rating: Int = 0,
     var respect: Int = 0,
-    val lastVisit: Date? = null,
+    val lastVisit: Date? = Date(),
     val isOnline: Boolean = false
 ) {
 
@@ -25,7 +26,10 @@ class User(
     init {
         println(
             "It's Alive!!!\n" +
-                    "${if (lastName === "Doe") "His name is $firstName $lastName" else "And his name is $firstName $lastName"}\n"
+                    "${if (lastName === "Doe")
+                        "His name is $firstName $lastName"
+                    else
+                        "And his name is $firstName $lastName"}\n"
         )
     }
 
@@ -34,10 +38,7 @@ class User(
         fun makeUser(fullName: String?): User {
             lastId++
 
-            val parts: List<String>? = fullName?.split(" ")
-
-            val firstName = parts?.getOrNull(0)
-            val lastName = parts?.getOrNull(1)
+            val (firstName, lastName) = Utils.parseFullName(fullName)
 
             return User(id = "$lastId", firstName = firstName, lastName = lastName)
         }
