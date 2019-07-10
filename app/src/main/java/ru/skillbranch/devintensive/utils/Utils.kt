@@ -21,4 +21,12 @@ object Utils {
         }
         return value
     }
+
+    fun toInitials(firstName: String?, lastName: String?): String? {
+        val first = firstName?.trim()?.capitalize()?.getOrNull(0)
+        val last = lastName?.trim()?.capitalize()?.getOrNull(0)
+        return if (first == null && last == null) null else "${first ?: ""}${last ?: ""}"
+    }
+
+
 }
